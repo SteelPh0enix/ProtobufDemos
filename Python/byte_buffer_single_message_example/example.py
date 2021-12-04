@@ -1,5 +1,4 @@
 # The `ExampleMessage_pb2` is generated using `protoc`, with help of `generate_protos.sh` script
-from contextlib import _GeneratorContextManager
 from protos.ExampleMessage_pb2 import Person, Company
 from random import choice, randint
 
@@ -11,12 +10,14 @@ DOMAINS = [
     "gmail.com", "hotmail.com", "outlook.com"
 ]
 
+
 def generate_random_employee() -> Person:
     employee = Person()
     employee.id = randint(1, 10000)
     employee.name = choice(NAMES)
     employee.email = "{0}@{1}".format(employee.name, choice(DOMAINS))
     return employee
+
 
 def generate_random_company() -> Company:
     company = Company()
@@ -27,9 +28,11 @@ def generate_random_company() -> Company:
     company.director.CopyFrom(generate_random_employee())
     return company
 
+
 def add_random_employees_to_company(company: Company, amount: int):
     employees_list = [generate_random_employee() for _ in range(amount)]
     company.employees.extend(employees_list)
+
 
 def main():
     print("Hello, this is byte_buffer_example!")
@@ -49,13 +52,15 @@ def main():
     decoded_company.ParseFromString(encoded_message)
 
     # Let's print it, and see what we decoded
-    print("This is how the company looks like after decoding:\n{0}".format(decoded_company))
+    print("This is how the company looks like after decoding:\n{0}".format(
+        decoded_company))
 
     # We can also compare it to original company, to see it is *really* is the same
     if (decoded_company == example_company):
         print("Decoded company is the same as original one! Success!")
     else:
         print("Something went wrong and decoded company is not the same as encoded one!")
+
 
 if __name__ == '__main__':
     main()
