@@ -27,10 +27,9 @@ def generate_random_company() -> Company:
     company.director.CopyFrom(generate_random_employee())
     return company
 
-def add_random_employees_to_company(company: Company, amount: int) -> Company:
+def add_random_employees_to_company(company: Company, amount: int):
     employees_list = [generate_random_employee() for _ in range(amount)]
     company.employees.extend(employees_list)
-    return company
 
 def main():
     print("Hello, this is byte_buffer_example!")
