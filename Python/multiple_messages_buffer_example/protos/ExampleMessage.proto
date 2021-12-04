@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package example;
+
+// Every message represents a single structure. Messages can be nested.
+message Person {
+    // Every field requires a type, name and tag. Tag is the number after =. It's not required to 
+    // start at 1, and also it's not required to count them in exact order.
+    int32 id = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message Company {
+    string name = 1;
+    Person director = 2;
+    // Repeated field is similar to an array. Repeated fields may repeat 0 or more times (which also makes them optional by default)
+    repeated Person employees = 3;
+}
