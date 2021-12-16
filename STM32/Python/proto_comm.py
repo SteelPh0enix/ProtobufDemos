@@ -31,17 +31,16 @@ class ProtobufComm:
 
     def read_packet(self) -> bytes:
         # First, we fetch 2 bytes of size from internal serial buffer
-        msg_len = -1
-        msg_size_data = bytes()
-        while msg_len < 0 or msg_len > 100:
-            msg_size_data = self.stm.read(2)
-            print(f"Read packet header: {msg_size_data.hex(' ')}")
-            msg_len = self.read_packet_size(msg_size_data)[0]
+        msg_size_data = self.stm.read(2)
+        print(f"Read packet header: {msg_size_data.hex(' ')}")
+        msg_len = self.read_packet_size(msg_size_data)[0]
         # Then, we fetch the rest of the message
         if msg_len > 0:
             msg_data = self.stm.read(msg_len)
+            print(f"Read packet data: {msg_data.hex(' ')}")
             return msg_data
         else:
+            print("Empty packet.")
             return bytes()
 
     def read_response(self) -> DeviceResponse:
