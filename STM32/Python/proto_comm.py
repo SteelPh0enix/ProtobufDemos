@@ -31,8 +31,12 @@ class ProtobufComm:
 
     def read_packet(self) -> bytes:
         # First, we fetch 2 bytes of size from internal serial buffer
-        msg_size_data = self.stm.read(2)
-        msg_len = self.read_packet_size(msg_size_data)[0]
+        msg_len = -1
+        msg_size_data = bytes()
+        while msg_len < 0 or msg_len > 100:
+            msg_size_data = self.stm.read(2)
+            print(f"Read packet header: {msg_size_data.hex(' ')}")
+            msg_len = self.read_packet_size(msg_size_data)[0]
         # Then, we fetch the rest of the message
         if msg_len > 0:
             msg_data = self.stm.read(msg_len)
@@ -60,7 +64,6 @@ class ProtobufComm:
             print('Some protobuf error happened while parsing the request on the device!')
 
     def start_data_output(self):
-        self.stm.flush()
         # Let's create the request and add the size
         msg = ProtobufCommParser.create_start_request()
         msg = self.write_packet_size(msg)

@@ -11,15 +11,17 @@
 
 /* Enum definitions */
 typedef enum _DeviceRequest_RequestType { 
-    DeviceRequest_RequestType_CHANGE_LED_STATE = 0, 
-    DeviceRequest_RequestType_START = 1, 
-    DeviceRequest_RequestType_STOP = 2 
+    DeviceRequest_RequestType_UNUSED = 0, 
+    DeviceRequest_RequestType_CHANGE_LED_STATE = 1, 
+    DeviceRequest_RequestType_START = 2, 
+    DeviceRequest_RequestType_STOP = 3 
 } DeviceRequest_RequestType;
 
 typedef enum _DeviceResponse_ResponseType { 
-    DeviceResponse_ResponseType_OK = 0, 
-    DeviceResponse_ResponseType_BAD_TYPE = 1, 
-    DeviceResponse_ResponseType_PROTOBUF_ERROR = 2 
+    DeviceResponse_ResponseType_UNUSED = 0, 
+    DeviceResponse_ResponseType_OK = 1, 
+    DeviceResponse_ResponseType_BAD_TYPE = 2, 
+    DeviceResponse_ResponseType_PROTOBUF_ERROR = 3 
 } DeviceResponse_ResponseType;
 
 /* Struct definitions */
@@ -56,11 +58,11 @@ typedef struct _DeviceRequest {
 
 
 /* Helper constants for enums */
-#define _DeviceRequest_RequestType_MIN DeviceRequest_RequestType_CHANGE_LED_STATE
+#define _DeviceRequest_RequestType_MIN DeviceRequest_RequestType_UNUSED
 #define _DeviceRequest_RequestType_MAX DeviceRequest_RequestType_STOP
 #define _DeviceRequest_RequestType_ARRAYSIZE ((DeviceRequest_RequestType)(DeviceRequest_RequestType_STOP+1))
 
-#define _DeviceResponse_ResponseType_MIN DeviceResponse_ResponseType_OK
+#define _DeviceResponse_ResponseType_MIN DeviceResponse_ResponseType_UNUSED
 #define _DeviceResponse_ResponseType_MAX DeviceResponse_ResponseType_PROTOBUF_ERROR
 #define _DeviceResponse_ResponseType_ARRAYSIZE ((DeviceResponse_ResponseType)(DeviceResponse_ResponseType_PROTOBUF_ERROR+1))
 

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x45xampleProto.proto\"\x14\n\x03LED\x12\r\n\x05state\x18\x01 \x01(\x08\"i\n\nDataPacket\x12\x0e\n\x06valueA\x18\x01 \x01(\x01\x12\x0e\n\x06valueB\x18\x02 \x01(\x01\x12\x0e\n\x06valueC\x18\x03 \x01(\x01\x12\x15\n\rconstantValue\x18\x04 \x01(\x01\x12\x14\n\x0cpacketNumber\x18\x05 \x01(\r\"\x8b\x01\n\rDeviceRequest\x12(\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x1a.DeviceRequest.RequestType\x12\x16\n\x08ledState\x18\x02 \x01(\x0b\x32\x04.LED\"8\n\x0bRequestType\x12\x14\n\x10\x43HANGE_LED_STATE\x10\x00\x12\t\n\x05START\x10\x01\x12\x08\n\x04STOP\x10\x02\"v\n\x0e\x44\x65viceResponse\x12*\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x1c.DeviceResponse.ResponseType\"8\n\x0cResponseType\x12\x06\n\x02OK\x10\x00\x12\x0c\n\x08\x42\x41\x44_TYPE\x10\x01\x12\x12\n\x0ePROTOBUF_ERROR\x10\x02\x62\x06proto3'
+  serialized_pb=b'\n\x12\x45xampleProto.proto\"\x14\n\x03LED\x12\r\n\x05state\x18\x01 \x01(\x08\"i\n\nDataPacket\x12\x0e\n\x06valueA\x18\x01 \x01(\x01\x12\x0e\n\x06valueB\x18\x02 \x01(\x01\x12\x0e\n\x06valueC\x18\x03 \x01(\x01\x12\x15\n\rconstantValue\x18\x04 \x01(\x01\x12\x14\n\x0cpacketNumber\x18\x05 \x01(\r\"\x97\x01\n\rDeviceRequest\x12(\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x1a.DeviceRequest.RequestType\x12\x16\n\x08ledState\x18\x02 \x01(\x0b\x32\x04.LED\"D\n\x0bRequestType\x12\n\n\x06UNUSED\x10\x00\x12\x14\n\x10\x43HANGE_LED_STATE\x10\x01\x12\t\n\x05START\x10\x02\x12\x08\n\x04STOP\x10\x03\"\x82\x01\n\x0e\x44\x65viceResponse\x12*\n\x04\x63ode\x18\x01 \x01(\x0e\x32\x1c.DeviceResponse.ResponseType\"D\n\x0cResponseType\x12\n\n\x06UNUSED\x10\x00\x12\x06\n\x02OK\x10\x01\x12\x0c\n\x08\x42\x41\x44_TYPE\x10\x02\x12\x12\n\x0ePROTOBUF_ERROR\x10\x03\x62\x06proto3'
 )
 
 
@@ -32,17 +32,22 @@ _DEVICEREQUEST_REQUESTTYPE = _descriptor.EnumDescriptor(
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='CHANGE_LED_STATE', index=0, number=0,
+      name='UNUSED', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='START', index=1, number=1,
+      name='CHANGE_LED_STATE', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='STOP', index=2, number=2,
+      name='START', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='STOP', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -50,7 +55,7 @@ _DEVICEREQUEST_REQUESTTYPE = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=235,
-  serialized_end=291,
+  serialized_end=303,
 )
 _sym_db.RegisterEnumDescriptor(_DEVICEREQUEST_REQUESTTYPE)
 
@@ -62,25 +67,30 @@ _DEVICERESPONSE_RESPONSETYPE = _descriptor.EnumDescriptor(
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='OK', index=0, number=0,
+      name='UNUSED', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='BAD_TYPE', index=1, number=1,
+      name='OK', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='PROTOBUF_ERROR', index=2, number=2,
+      name='BAD_TYPE', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='PROTOBUF_ERROR', index=3, number=3,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=355,
-  serialized_end=411,
+  serialized_start=368,
+  serialized_end=436,
 )
 _sym_db.RegisterEnumDescriptor(_DEVICERESPONSE_RESPONSETYPE)
 
@@ -213,7 +223,7 @@ _DEVICEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=152,
-  serialized_end=291,
+  serialized_end=303,
 )
 
 
@@ -245,8 +255,8 @@ _DEVICERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=293,
-  serialized_end=411,
+  serialized_start=306,
+  serialized_end=436,
 )
 
 _DEVICEREQUEST.fields_by_name['code'].enum_type = _DEVICEREQUEST_REQUESTTYPE

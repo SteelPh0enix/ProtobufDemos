@@ -32,6 +32,21 @@ def main():
     print(f'Using port {args.port} with baudrate {args.baudrate}')
 
     comm = proto_comm.ProtobufComm(args.port, args.baudrate)
+
+    # here's the thing
+    # pyserial sucks. a lot. It's probably the worst serial library i've ever used.
+    # including Qt ones.
+    # somehow if we run this script after re-setting the board,
+    # if we ran this previously - pyserial buffers are 
+    # loaded with A LOT of junk, which is absolutely not what
+    # STM has written to us post-reset.
+    # The only solution i've found is to unplug and plug the board again
+    # before running this script.
+    # all of the below - does not work at all.
+    comm.stm.flush()
+    comm.stm.read_all()
+    comm.stm.flushInput()
+    comm.stm.flushOutput()
     comm.start_data_output()
 
     try:

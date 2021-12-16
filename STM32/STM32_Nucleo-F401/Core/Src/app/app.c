@@ -30,23 +30,26 @@ static uint16_t uartRequestLength = 0;
 
 static uint8_t uartResponseBuffer[UART_DATA_BUFFER_SIZE] = { 0 };
 
-static uint32_t dataDelay = 200;
+static uint32_t dataDelay = 500;
 static uint32_t lastDataSentTimestamp = 0;
 
 void setSizeHeader(uint8_t* buffer, uint16_t size);
 uint16_t getSizeHeader(uint8_t* buffer);
+void printBuffer(uint8_t* const buffer, size_t len);
 
 void appSetup() {
 	srand(RANDOM_SEED);
 	generateConstantValue();
 	printf("   \r\nHello, world!\r\n");
 
-	HAL_UARTEx_ReceiveToIdle_DMA(&UART_HANDLE, uartRequestBuffer, UART_DATA_BUFFER_SIZE);
+	HAL_UARTEx_ReceiveToIdle_DMA(&UART_HANDLE, uartRequestBuffer,
+			UART_DATA_BUFFER_SIZE);
 }
 
 void appLoop() {
 	// We recieved something - let's check what exactly happened
 	if (uartRequestLength) {
+		HAL_Delay(500);
 		printf("Received %d bytes, so we should have %d-byte long protobuf\r\n",
 				uartRequestLength, uartRequestLength - 2);
 
@@ -61,6 +64,8 @@ void appLoop() {
 				uartResponseBuffer + HEADER_SIZE_LENGTH, UART_DATA_BUFFER_SIZE);
 		// we assume that the returned message is only Protobuf data, so we have to add our header
 		setSizeHeader(uartResponseBuffer, responseLength);
+		printf("Response: ");
+		printBuffer(uartResponseBuffer, responseLength + 2);
 		// And off we go with the packet - don't forget to add length field size here!
 		HAL_UART_Transmit(&UART_HANDLE, uartResponseBuffer,
 				responseLength + HEADER_SIZE_LENGTH, HAL_MAX_DELAY);
@@ -72,6 +77,9 @@ void appLoop() {
 		HAL_UARTEx_ReceiveToIdle_DMA(&UART_HANDLE, uartRequestBuffer,
 		UART_DATA_BUFFER_SIZE);
 		uartRequestLength = 0;
+
+		// grace period for python, because it does some stupid stuff
+		lastDataSentTimestamp = HAL_GetTick();
 	}
 
 	// If data output is enabled, we generate and transmit the data here every 100ms (by default)
@@ -107,6 +115,14 @@ uint16_t getSizeHeader(uint8_t* buffer) {
 	// We'll use my helper macro from bit_helpers.h
 	// Size will be decoded in little endian format (LSB first in memory)
 	return BYTEARRAY_TO_16BIT_VALUE_LE(buffer);
+}
+
+void printBuffer(uint8_t* const buffer, size_t len) {
+	printf("[");
+	for (size_t i = 0; i < len; i++) {
+		printf("0x%02X ", buffer[i]);
+	}
+	printf("]\r\n");
 }
 
 // stdout redirected to debugger's ITM, so we can have debug prints

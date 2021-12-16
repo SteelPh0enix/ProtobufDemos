@@ -21,9 +21,10 @@ message DataPacket {
 // This message is used to tell the device what do you want to do
 message DeviceRequest {
 	enum RequestType {
-		CHANGE_LED_STATE = 0; // This request uses ledState field of this message
-		START = 1; // This request will enable data output on the device
-		STOP = 2; // This request will stop data output on the device
+		UNUSED = 0;
+		CHANGE_LED_STATE = 1; // This request uses ledState field of this message
+		START = 2; // This request will enable data output on the device
+		STOP = 3; // This request will stop data output on the device
 	}
 
 	RequestType code = 1;
@@ -35,9 +36,10 @@ message DeviceRequest {
 
 message DeviceResponse {
 	enum ResponseType {
-		OK = 0; // Everything is OK and request was handled correctly
-		BAD_TYPE = 1; // Wrong request type
-		PROTOBUF_ERROR = 2; // some protobuf error has happened on the device
+		UNUSED = 0;
+		OK = 1; // Everything is OK and request was handled correctly
+		BAD_TYPE = 2; // Wrong request type
+		PROTOBUF_ERROR = 3; // some protobuf error has happened on the device
 	}
 	
 	ResponseType code = 1;
