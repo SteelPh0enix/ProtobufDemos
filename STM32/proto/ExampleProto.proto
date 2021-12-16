@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+// This message is for turning onboard LED on and off
+message LED {
+	bool state = 1;
+}
+
+// This message contains the data
+message DataPacket {
+	// All values are random, in some fixed ranges.
+	// Values A-C will randomly change after every readout.
+	double valueA = 1;
+	double valueB = 2;
+	double valueC = 3;
+	double constantValue = 4;
+	
+	// Packet number is counted from 1 and increases after every packet has been sent.
+	uint32 packetNumber = 5;
+}
+
+// This message is used to tell the device what do you want to do
+message DeviceRequest {
+	enum RequestType {
+		CHANGE_LED_STATE = 0; // This request uses ledState field of this message
+		START = 1; // This request will enable data output on the device
+		STOP = 2; // This request will stop data output on the device
+	}
+
+	RequestType code = 1;
+	// ledState is ignored, unless it's CHANGE_LED_STATE request
+	// Since proto3 does not track presence by default, you can just
+	// completely ignore this field on both sides if it's not used.
+	LED ledState = 2;
+}
+
+message DeviceResponse {
+	enum ResponseType {
+		OK = 0; // Everything is OK and request was handled correctly
+		BAD_TYPE = 1; // Wrong request type
+		PROTOBUF_ERROR = 2; // some protobuf error has happened on the device
+	}
+	
+	ResponseType code = 1;
+}
