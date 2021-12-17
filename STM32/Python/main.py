@@ -1,7 +1,6 @@
 import serial.tools.list_ports as list_ports
 from serial.tools.list_ports_common import ListPortInfo
 import argparse
-import proto_parser
 import proto_comm
 
 comm = None

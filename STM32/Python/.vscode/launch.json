@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Launch test app",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/Python/main.py",
+            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal",
-            "args": ["/dev/ttyACM0"]
+            "args": ["COM3"]
         }
     ]
 }

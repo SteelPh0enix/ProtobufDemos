@@ -1,5 +1,4 @@
 import serial
-import time
 import threading
 import struct
 from proto_parser import ProtobufCommParser
@@ -79,7 +78,7 @@ class ProtobufComm:
         # shortened, since lots of code repeats, i just dont care about it now.
         # C'mon, it's just an example, no one will ever use this code in prod...
         # ...right?
-        msg = ProtobufCommParser.create_start_request()
+        msg = ProtobufCommParser.create_stop_request()
         msg = self.write_packet_size(msg)
 
         self.stm.write(msg)
